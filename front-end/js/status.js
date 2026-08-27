@@ -131,12 +131,13 @@ function renderTimeOutStatus(onRetry){
     if (!timeoutArea) {
         timeoutArea = document.createElement("section");
         timeoutArea.id = "timeout-area";
+        timeoutArea.className = "w-[70%] mx-auto mb-10";
         timeoutArea.innerHTML = `
         <p class="ml-[15%] mb-9 text-[#6b7280]">
             A análise ainda não foi concluída.
             Tempo máximo excedido.
         </p>
-        <button id="retry-button" type="button">
+        <button id="retry-button" type="button" class="ml-[15%] px-6 py-3 rounded-lg bg-[#A97855] text-[#e2f0fe] hover:bg-[#70472F] active:bg-[#E7F0E8]">
             Repetir consulta
         </button>
         `;
