@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="./js/app.js"></script>
     <title>Case Técnico - Vale Rural</title>
 </head>
 <body class="bg-[#F5F7F2]">
@@ -12,111 +13,12 @@
             <h1 class="items-center text-center font-bold text-3xl text-[#26352B] pt-5 mb-5">Vale Rural - Esteira de Credito</h1>
         </header>
         <nav class= "flex  flex-col-2 justify-center mt-5" >
-            <button class="rounded-tl-lg rounded-tr-lg border-t border-x w-1/3 h-12 px-6 py-3
-                            text-[#e2f0fe] bg-[#2F6B3F] hover:bg-[#245532] active:bg-[#E7F0E8] active:shadow-inner active:translate-y-[3px] ">Nova Proposta</button>
-            <button class="rounded-tl-lg rounded-tr-lg border-t border-x w-1/3 h-12 px-6 py-3
-                            text-[#e2f0fe]  bg-[#A97855] hover:bg-[#70472F] active:bg-[#E7F0E8]">Consultar Status</button>
+            <button id="btn-proposal" class="rounded-tl-lg rounded-tr-lg border-t border-x w-1/3 h-12 px-6 py-3
+                            text-[#e2f0fe] bg-[#2F6B3F] hover:bg-[#245532] focus-visible:bg-[#E7F0E8] focus-visible:shadow-inner focus-visible:translate-y-[3px] ">Nova Proposta</button>
+            <button id="btn-consult" class="rounded-tl-lg rounded-tr-lg border-t border-x w-1/3 h-12 px-6 py-3
+                            text-[#e2f0fe]  bg-[#A97855] hover:bg-[#70472F]">Consultar Status</button>
         </nav>
-        <main class="rounded-lg mt-[0.2px] mx-8 bg-[#DCE8D9]">
-            <section id="new-proposal" class="flex flex-col items-center " >
-                <form action="/upload" method="POST" enctype="multipart/form-data"
-                        class="flex flex-col items-center w-[70%] mt-5 mb-10 rounded-lg bg-[#FFFFFF]">
-                    <label for="fdocument" class="my-2 text-[#66736A]"> CPF/CNPJ</label>
-                    <input type="text" id="fdocument" name="fdocument"
-                     class="border border-gray-300 rounded-lg px-3 py-2 w-11/12">
-                    <label for="frazao" class="mt-5 mb-2 text-[#66736A]"> Razão Social/ Nome</label>
-                    <input type="text" id="frazao" name="frazao"
-                     class="border border-gray-300 rounded-lg px-3 py-2 w-11/12"><br>
-                    <p class="text-[#66736A]"> Tipo de Pessoa</p>
-                    <div>
-                        <input type="radio" id="pessoa_fisica" name="ftype_person" value="Pessoa Física">
-                        <label for="pessoa_fisica " class="text-[#66736A]" >Pessoa Física</label>
-                        <input type="radio" id="pessoa_juridica" name="ftype_person" value="Pessoa Jurídica" class="ml-8">
-                        <label for="pessoa_juridica" class="text-[#66736A]">Pessoa Jurídica</label>
-                    </div><br>
-                    <label for="fvalue" class="mb-2 text-[#66736A]"> Valor Solicitado</label>
-                    <input type="text" id="fvalue" name="fvalue"
-                     class="border border-gray-300 rounded-lg px-3 py-2 w-11/12 mb-3">
-                     <label for="ffile" class="mb-4 text-[#66736A]">Anexar Documento(s)</label>
-                     <input type="file" id="ffile" name="document_array" accept=".pdf, .doc, .docx, .xlsx" multiple>
-
-                     <button class="w-11/12 my-5 py-3 rounded-lg bg-[#2F6B3F] text-[#e2f0fe] hover:bg-[#245532] active-[#0F3D22]"> Enviar Proposta</button>
-                </form>
-                
-            </section>
-
-            <section id="consult-status" class="flex flex-col ">
-                <form class="flex flex-col-2 justify-center my-5">
-                    <label for="fconsult" class="my-2"></label>
-                    <input type="text" id="fconsult" name="fconsult"
-                     class="border border-gray-300 rounded-lg px-3 py-2 w-[41%]">
-                     <button class="w-1/5 h-12 px-6 py-3 ml-5 rounded-lg bg-[#A97855] text-[#e2f0fe] hover:bg-[#70472F] active:bg-[#E7F0E8]"> Consultar</button>
-                </form>
-                <section id="display-status">
-                    <div id="in-process" class="flex flex-col justify-start pl-[150px] hidden">
-                        <h1 class="mt-8 mb-[3px] font-bold text-2xl">Minha proposta</h1>
-                        <p class="mb-9 text-[#6b7280] text-base">Número: 2133123</p>
-
-                        <div class="flex flex-col-2">
-                            <span>
-                                <i class="inline-block w-[22px] h-[22px] rounded-full bg-green-500 text-center text-white not-italic">✓</i>
-                                Proposta recebida
-                            </span>
-                        </div>
-                        <div class="w-0.5 h-6 ml-[9px] bg-[#ccc] "></div>
-                        <span>
-                            <i class="inline-block w-[22px] h-[22px] mt-1 rounded-full bg-green-500 text-center text-white not-italic">✓</i>
-                            Documentos enviados
-                        </span>
-                        <div class="w-[2px] h-6 ml-2 mb-0.5 bg-[#ccc]"></div>
-                        <div class="flex flex-col-2 mb-20">
-                            <div class="w-[23px] h-[23px] border-1 border-[#e5e5e5] border-t-[#51d4db] rounded-[50%] animate-spin"></div>
-                            <span class="ml-1">Análise de Risco (Processando...)</span>
-                        </div>
-                    </div>
-                    <p class="mb-10 ml-[15%] text-[#6b7280] text-base hidden">A IA está analisando os documentos.<br>Isso pode levar alguns minutos.</p>
-    
-                    <p class="ml-[15%] text-xl hidden">Ultima atualização: 10/10/2023 14:30</p>
-
-                    <p class="ml-[15%] mb-9 text-[#6b7280] hidden">A análise ainda não foi concluida. <br>
-                        Faça uma nova consulta ou atualize o status para verificar asituação da proposta.</p>
-
-                    <button class="rounded-lg w-[40%] h-12 ml-5 mt-[30px] ml-[30%] bg-[#A97855] text-[#e2f0fe] hover:bg-[#70472F] active:bg-[#E7F0E8] hidden">🔁Atualizar Status</button>
-
-                    <div id="approved" class="hidden">
-                        <p class=" ml-[30%] mt-5 text-2xl font-bold"> Proposta Aprovada </p>
-                        <div class="flex flex-col items-start ml-[15%] mt-6">
-                            <p>CNPJ</p>
-                            <p id="aprroved_document"> XXXX.XXXX.XXX/XX</p>
-                            <p class="mt-5">Razão Social</p>
-                            <p id="aprroved_reason"> Fazenda Boi Feliz</p>
-                            <p class="mt-5">Valor solicitado</p>
-                            <p id="aprroved_value"> R$ 150.000</p>
-                            <p class="mt-5">Status</p>
-                            <p> APROVADO</p>
-                            <p class="mt-5">Data da Decisão</p>
-                            <p id="aprroved_date"> 22/08/2026</p>
-                        </div>
-                    </div>
-                    <div id="disapprove" class="hidden">
-                        <p class=" ml-[30%] mt-5 text-2xl font-bold"> Proposta Reprovada </p>
-                        <div class="flex flex-col items-start ml-[15%] mt-6">
-                            <p>CNPJ</p>
-                            <p id="disapprove_document"> XXXX.XXXX.XXX/XX</p>
-                            <p class="mt-5">Razão Social</p>
-                            <p id="disapprove_reason"> Fazenda Boi Feliz</p>
-                            <p class="mt-5">Valor solicitado</p>
-                            <p id="disapprove_value"> R$ 150.000</p>
-                            <p class="mt-5">Status</p>
-                            <p> REPROVADO</p>
-                            <p class="mt-5">Motivo da Reprovação</p>
-                            <p id="disapprove_motive"> motivo cujo qual foi recusado a proposta</p>
-                            <p class="mt-5">Data da Decisão</p>
-                            <p id="disapprove_date"> 22/08/2026</p>
-                        </div>
-                    </div>
-                </section>
-            </section>
+        <main id="content-container" class="rounded-lg mt-[0.2px] mx-8 bg-[#DCE8D9]">
         </main>
     </div>
 </body>
