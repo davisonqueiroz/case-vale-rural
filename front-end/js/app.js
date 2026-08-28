@@ -46,6 +46,7 @@ submitForms.addEventListener('submit',async (event) => {
 
     alert(`Proposta criada com sucesso. ID: ${cardId}`);
     submitForms.reset();
+    consultStatusButton.reset();
     toggleForm(false);
     toggleConsult(true);
     toggleStatus(true);
@@ -99,6 +100,7 @@ async function requestStatus(cardId) {
       });
     } else {
       alert("Não foi possível consultar a proposta." + error.message);
+      toggleStatus(false);
     }
   }
 }
