@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": { 
+  "scripts": {
     "start": "node back-end/src/server.js",
     "dev": "nodemon back-end/src/server.js"
   },
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/davisonqueiroz/case-vale-rural#readme",
   "dependencies": {
     "cors": "^2.8.6",
+    "cpf-cnpj-validator": "^2.1.2",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "needle": "^3.5.0"

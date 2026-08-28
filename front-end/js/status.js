@@ -45,7 +45,7 @@ function buildFinalMessage(message, status) {
     }else if(status === "Reprovado") {
         messageDiv.classList.add('bg-[#ffcccc]')
     }else {
-        throw new Error(`Invalid status.`);
+        throw new Error(`Status inválido. Valores esperados: "Aprovado" ou "Reprovado".`);
     }
 
     const statusArea = document.getElementById("status-area");

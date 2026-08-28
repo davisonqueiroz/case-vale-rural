@@ -60,7 +60,7 @@ async function waitFinalStatus(cardId) {
 
     }
 
-    const error = new Error("Max time excepted.");
+    const error = new Error("Tempo máximo de espera excedido. A proposta ainda não foi processada.");
     error.code = "STATUS_TIMEOUT";
     throw error
 }
