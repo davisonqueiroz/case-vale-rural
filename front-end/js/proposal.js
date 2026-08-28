@@ -1,3 +1,5 @@
+import { cpf, cnpj } from 'https://esm.sh/cpf-cnpj-validator@2.1.2';
+
 function renderProposalForm() {
   return `
     <section id="new-proposal" class="flex flex-col items-center " >
@@ -5,10 +7,10 @@ function renderProposalForm() {
                 class="flex flex-col items-center w-[70%] mt-5 mb-10 rounded-lg bg-[#FFFFFF]">
             <label for="fdocument" class="my-2 text-[#66736A]"> CPF/CNPJ</label>
             <input type="text" id="fdocument" name="fdocument"
-                class="border border-gray-300 rounded-lg px-3 py-2 w-11/12" required>
+                class="border border-gray-300 rounded-lg px-3 py-2 w-11/12" required placeholder="000.000.000-00">
             <label for="freason" class="mt-5 mb-2 text-[#66736A]"> Razão Social/ Nome</label>
             <input type="text" id="freason" name="freason"
-                class="border border-gray-300 rounded-lg px-3 py-2 w-11/12" required><br>
+                class="border border-gray-300 rounded-lg px-3 py-2 w-11/12" required placeholder="Empresa Fantasia XXX"><br>
             <p class="text-[#66736A]"> Tipo de Pessoa</p>
             <div>
                 <input type="radio" id="pessoa_fisica" name="ftype_person" value="Pessoa Física" required>
@@ -18,7 +20,7 @@ function renderProposalForm() {
             </div><br>
             <label for="fvalue" class="mb-2 text-[#66736A]"> Valor Solicitado</label>
             <input type="text" id="fvalue" name="fvalue"
-                class="border border-gray-300 rounded-lg px-3 py-2 w-11/12 mb-3" required>
+                class="border border-gray-300 rounded-lg px-3 py-2 w-11/12 mb-3" required placeholder="150.000,00">
             <label for="ffile" class="mb-4 text-[#66736A]">Anexar Documento(s)</label>
             <input type="file" id="ffile" name="ffile" accept=".pdf" required>
 
@@ -42,11 +44,22 @@ function getFormData(){
         throw new Error("Selecione um arquivo PDF.");
     }
     
+    const selectedRadio = formData.get("ftype_person")
+    const documentValue = formData.get("fdocument").replace(/\D/g, "");
+
+    const validatedDocument = selectedRadio === "Pessoa Física" ? cpf.isValid(documentValue) : cnpj.isValid(documentValue);
+
+    if (!validatedDocument) {
+        throw new Error("Documento inválido.");
+    }
+
     return {
-        document: formData.get("fdocument"),
+        document: documentValue,
         social_reason: formData.get("freason"),
         person_type: formData.get("ftype_person"),
-        requested_value: formData.get("fvalue"),
+        requested_value: formData.get("fvalue")
+        .replace(/[^\d,]/g, "")
+        .replace(",", "."),
         file,
         file_name: file.name
     };
